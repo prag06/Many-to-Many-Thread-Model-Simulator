@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Many-to-Many Thread Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="noise"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-badge">OS PROCESS SCHEDULER</div>
+    <h1>Thread<span class="accent">Sim</span></h1>
+    <p>Many-to-Many Kernel Thread Model · FCFS · SJF · Round Robin</p>
+  </header>
+
+  <!-- MAIN GRID -->
+  <div class="grid">
+
+    <!-- LEFT PANEL — Controls -->
+    <div class="panel panel-controls">
+      <div class="panel-label">CONFIG</div>
+
+      <div class="field-group">
+        <label>User Threads <span class="badge">UT</span></label>
+        <input type="number" id="numUser" min="1" max="10" value="3" onchange="generateTable()">
+      </div>
+
+      <div class="field-group">
+        <label>Kernel Threads <span class="badge">KT</span></label>
+        <input type="number" id="numKernel" min="1" max="4" value="2">
+      </div>
+
+      <div class="field-group">
+        <label>Time Quantum <span class="badge">RR</span></label>
+        <input type="number" id="quantum" min="1" max="10" value="2">
+      </div>
+
+      <div id="threadTableContainer">
+        <div class="table-header">
+          <span>Thread Details</span>
+          <span class="hint">AT = Arrival · BT = Burst</span>
+        </div>
+        <table id="threadTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>AT</th>
+              <th>BT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="thread-id">T1</td>
+              <td><input type="number" value="0" min="0" class="at-input"></td>
+              <td><input type="number" value="24" min="1" class="bt-input"></td>
+            </tr>
+            <tr>
+              <td class="thread-id">T2</td>
+              <td><input type="number" value="3" min="0" class="at-input"></td>
+              <td><input type="number" value="3" min="1" class="bt-input"></td>
+            </tr>
+            <tr>
+              <td class="thread-id">T3</td>
+              <td><input type="number" value="6" min="0" class="at-input"></td>
+              <td><input type="number" value="3" min="1" class="bt-input"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="field-group">
+        <label>Algorithm</label>
+        <select id="algo">
+          <option value="FCFS">FCFS — First Come First Served</option>
+          <option value="SJF">SJF — Shortest Job First</option>
+          <option value="RR">RR — Round Robin</option>
+        </select>
+      </div>
+
+      <button id="runBtn" onclick="runSimulation()">
+        <span class="btn-icon">▶</span>
+        <span>Run Simulation</span>
+      </button>
+
+      <div class="stats-box" id="statsBox">
+        <div class="stat-row">
+          <span class="stat-label">Avg Waiting Time</span>
+          <span class="stat-val" id="avgWT">—</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Avg Turnaround</span>
+          <span class="stat-val" id="avgTAT">—</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">CPU Utilization</span>
+          <span class="stat-val" id="cpuLoad">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER PANEL — Results -->
+    <div class="panel panel-center">
+      <div class="panel-label">SIMULATION</div>
+
+      <section class="section">
+        <h2 class="section-title">Gantt Chart <span class="algo-tag" id="algoTag"></span></h2>
+        <div id="ganttWrapper">
+          <div id="gantt" class="gantt-box">
+            <div class="gantt-empty">Run simulation to see timeline</div>
+          </div>
+          <div id="ganttTimeline" class="gantt-timeline"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Thread Metrics</h2>
+        <div id="output">
+          <div class="metrics-empty">Results appear here after simulation</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT PANEL — Mapping & Charts -->
+    <div class="panel panel-right">
+      <div class="panel-label">ANALYSIS</div>
+
+      <section class="section">
+        <h2 class="section-title">Thread Mapping</h2>
+        <div id="mapping">
+          <div class="mapping-empty">Many-to-Many model visualization</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Performance</h2>
+        <div id="charts">
+          <div class="chart-empty">Charts appear after simulation</div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <span>Many-to-Many Thread Model Simulator</span>
+    <span>·</span>
+    <span>Backend: Flask · Frontend: Vanilla JS</span>
+  </footer>
+
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
+ui layout update

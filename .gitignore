@@ -1,0 +1,16 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Node / JS (optional)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files
+.env
